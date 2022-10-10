@@ -4,62 +4,66 @@
  * the TODOs we have left you. You may find the readings in chapter
  * 1. Introduction to Java helpful.
  */
-
+import java.util.*;
 public abstract class Bag {
-    /*
-     * TODO: Create the following private instance variables
-     *       - a String named color
-     *       - an int named numberOfContents
-     *       - an int named capacity
-     *       - an array of Strings named contents
-     */
-
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private Stack<String> contents;
 
 
 
     /*
-     * TODO: Create a constructor that takes two arguments:
-     *       - a String representing the Bag's colour
-     *       - an int representing the Bag's capacity
      *
      * The other attributes (private instance variables) should
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
 
-
-
-
-    /*
-     * TODO: Create a variety of 'getter' functions.
-     *       These should be named:
-     *           - getColor
-     *           - getNumberOfContents
-     *           - getCapacity
+    /**
+     * Constructor for Bag.
+     * @param color: String specifying the color of the bag
+     * @param capacity: int specifying the capacity of the bag
      */
+    public Bag(String color, int capacity) {
+        this.color = color;
+        this.capacity = capacity;
+        this.numberOfContents = 0;
+        this.contents = new Stack<String>();
+    }
+
+    public String getColor() {
+        return this.color;
+    }
+
+    public int getNumberOfContents() {
+        return this.numberOfContents;
+    }
+
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 
 
 
 
     /*
-     * TODO: Create a setter function called setColor which sets the
-     *       color of this bag to the given color.
-     */
-
-
-
-
-
-    /*
-     * TODO: Create a method called addItem that takes in a String
-     *       representing an item in the Bag.
-     *       The item is added into the Bag if the number of items
-     *       in the bag is < the capacity of the Bag.
-     *       Remember to modify numberOfContents accordingly.
-     *
      *       This method should return true if the item was added
      *       and false otherwise.
      */
+    public boolean addItem(String item) {
+        if (this.numberOfContents >= this.capacity) { return false; }
+        else {
+            this.contents.add(item);
+            this.numberOfContents ++;
+            return true;
+        }
+    }
 
 
 
@@ -73,8 +77,13 @@ public abstract class Bag {
      *
      * If there are no items in this Bag, return null.
      *
-     * @return
+     * @return String representing the last object added to the bag. If there were none, return null.
      */
+    public String popItem() {
+        if (this.numberOfContents == 0) { return null; }
+        this.numberOfContents -= 1;
+        return this.contents.pop();
+    }
 
 
 
@@ -87,7 +96,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-
+        this.capacity += n;
     }
 
     /**
@@ -95,7 +104,7 @@ public abstract class Bag {
      * This method requires you to have created the private
      * instance variables mentioned above.
      *
-     * @return
+     * @return Return the details of the bag as a String
      */
     @Override
     public String toString() {
